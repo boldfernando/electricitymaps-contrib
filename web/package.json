@@ -210,8 +210,8 @@
     "workbox-window": "7.3.0"
   },
   "engines": {
-    "node": "^20",
-    "pnpm": "^9"
+    "node": ">=20",
+    "pnpm": ">=9"
   },
   "packageManager": "pnpm@9.3.0"
 }
