@@ -92,11 +92,20 @@ function zeroComplexPolygons(
 
 function matchesZonesConfig(fc: WorldFeatureCollection) {
   const config = getConfig();
+  const validZones = new Set(Object.keys(config.zones));
+  for (const zoneConfig of Object.values(config.zones)) {
+    if (zoneConfig.subZoneNames) {
+      for (const subName of zoneConfig.subZoneNames) {
+        validZones.add(subName);
+      }
+    }
+  }
 
   const missingZones: string[] = [];
   featureEach(fc, (ft) => {
-    if (!(ft.properties?.zoneName in config.zones)) {
-      missingZones.push(ft.properties?.zoneName);
+    const name = ft.properties?.zoneName;
+    if (name && !validZones.has(name) && !['DK-BHM', 'GB-ORK'].includes(name)) {
+      missingZones.push(name);
     }
   });
   if (missingZones.length > 0) {
