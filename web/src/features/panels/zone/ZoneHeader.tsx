@@ -19,8 +19,9 @@ interface ZoneHeaderTitleProps {
   isEstimated?: boolean;
   isAggregated?: boolean;
   zoneDetail?: ZoneDetail;
-  status?: 'LIVE' | 'HISTORICAL' | 'ESTIMATED' | 'UNKNOWN';
+  status?: 'LIVE' | 'HISTORICAL' | 'ESTIMATED' | 'STALE' | 'UNAVAILABLE' | 'UNKNOWN';
   isConsumption?: boolean;
+  updatedAt?: string;
 }
 
 export default function ZoneHeader({
@@ -29,6 +30,7 @@ export default function ZoneHeader({
   zoneDetail,
   status,
   isConsumption,
+  updatedAt,
 }: ZoneHeaderTitleProps) {
   const seoZoneName = getSEOZoneName(zoneId);
   const zoneNameFull = getFullZoneName(zoneId);
@@ -52,7 +54,7 @@ export default function ZoneHeader({
         <ZoneHeaderTitle zoneId={zoneId} zoneNameFull={zoneNameFull} />
         <ZoneProvenanceRow
           source={zoneDetail?.source}
-          updatedAt={zoneDetail?.stateDatetime}
+          updatedAt={zoneDetail?.stateDatetime || updatedAt}
           status={status}
           isConsumption={isConsumption}
         />

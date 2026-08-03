@@ -166,6 +166,7 @@ export default function ZoneDetails(): JSX.Element {
           zoneDetail={selectedData}
           status={provenanceStatus}
           isConsumption={isConsumption}
+          updatedAt={selectedDatetimeString}
         />
         <div
           id="panel-scroller"
