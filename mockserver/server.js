@@ -11,36 +11,41 @@ app.use(cors());
 
 const DEFAULT_ZONE_KEY = 'DE';
 
-app.get('/v8/details/:aggregate/:zoneId', (req, res, next) => {
+app.get(['/v8/details/:aggregate/:zoneId', '/v10/details/:aggregate/:zoneId'], (req, res, next) => {
   const { aggregate, zoneId } = req.params;
+  const version = req.path.startsWith('/v10') ? 'v10' : 'v8';
 
-  // if file exists return it, otherwise redirect to DEFAULT file
-  if (fs.existsSync(`./public/v8/details/${aggregate}/${zoneId}.json`)) {
-    // file structure of project will return the correct file
+  if (fs.existsSync(`./public/${version}/details/${aggregate}/${zoneId}.json`)) {
     next();
   } else {
-    res.redirect(`/v8/details/${aggregate}/${DEFAULT_ZONE_KEY}`);
+    res.redirect(`/${version}/details/${aggregate}/${DEFAULT_ZONE_KEY}`);
   }
 });
 
-app.get('/v8/gfs/wind', (req, res, next) => {
+app.get(['/v8/gfs/wind', '/v10/gfs/wind'], (req, res, next) => {
   const { refTime, targetTime } = req.query;
+  const version = req.path.startsWith('/v10') ? 'v10' : 'v8';
 
-  fs.readFile(`./public/v8/gfs/wind.json`, (err, data) => {
+  fs.readFile(`./public/${version}/gfs/wind.json`, (err, data) => {
+    if (err) return next();
     const jsonData = JSON.parse(data);
-    jsonData.data[0].header.refTime = targetTime;
-
+    if (jsonData.data && jsonData.data[0]) {
+      jsonData.data[0].header.refTime = targetTime;
+    }
     res.json(jsonData);
   });
 });
 
-app.get('/v8/gfs/solar', (req, res, next) => {
+app.get(['/v8/gfs/solar', '/v10/gfs/solar'], (req, res, next) => {
   const { refTime, targetTime } = req.query;
+  const version = req.path.startsWith('/v10') ? 'v10' : 'v8';
 
-  fs.readFile(`./public/v8/gfs/solar.json`, (err, data) => {
+  fs.readFile(`./public/${version}/gfs/solar.json`, (err, data) => {
+    if (err) return next();
     const jsonData = JSON.parse(data);
-    jsonData.data[0].header.refTime = targetTime;
-
+    if (jsonData.data && jsonData.data[0]) {
+      jsonData.data[0].header.refTime = targetTime;
+    }
     res.json(jsonData);
   });
 });
