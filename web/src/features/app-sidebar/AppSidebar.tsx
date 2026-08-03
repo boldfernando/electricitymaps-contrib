@@ -120,7 +120,7 @@ export function AppSidebar() {
             <DropdownMenu.Root open={isMenuOpen} onOpenChange={handleOpenChange}>
               <DropdownMenu.Trigger asChild>
                 <SidebarMenuButton
-                  className="p-2 text-neutral-600 transition-all duration-200 hover:bg-[#126945]/10 hover:text-[#126945] data-[active=true]:bg-[#126945]/10 data-[active=true]:font-semibold data-[active=true]:text-[#126945] group-data-[collapsible=icon]:!p-1.5 dark:text-neutral-200 dark:hover:bg-[#4DC18C]/20 dark:hover:text-[#4DC18C] dark:data-[active=true]:bg-[#4DC18C]/20 dark:data-[active=true]:text-[#4DC18C] group-data-[collapsible=icon]:[&>svg]:size-5"
+                  className="p-2 text-neutral-600 transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 data-[active=true]:bg-[#1f1f22] data-[active=true]:shadow-[inset_2px_0_0_#ff6600] data-[active=true]:font-semibold data-[active=true]:text-[#f9f5f8] group-data-[collapsible=icon]:!p-1.5 dark:text-neutral-200 group-data-[collapsible=icon]:[&>svg]:size-5"
                   aria-label="Help and Support Menu"
                 >
                   <HelpCircleIcon />

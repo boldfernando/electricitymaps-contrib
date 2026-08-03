@@ -41,14 +41,14 @@ export function Button({
   return (
     <div
       className={twMerge(
-        `items-center justify-center rounded-full ${getBackground(type, isDisabled)}`,
+        `items-center justify-center rounded-sm ${getBackground(type, isDisabled)}`,
         backgroundClasses,
         shouldShrink ? 'w-fit' : ''
       )}
     >
       <As
         className={twMerge(
-          `flex h-full w-full select-none flex-row items-center justify-center rounded-full text-sm font-semibold
+          `flex h-full w-full select-none flex-row items-center justify-center rounded-sm text-sm font-semibold
         focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green disabled:text-neutral-400
         disabled:hover:bg-inherit disabled:dark:text-neutral-500 ${getSize(
           size,

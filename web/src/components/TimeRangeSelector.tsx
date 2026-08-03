@@ -50,15 +50,18 @@ function TimeRangeSelector({ timeRange, onToggleGroupClick }: TimeRangeSelectorP
 
   return (
     <DropdownMenu.Root onOpenChange={onToggleDropdown} open={isOpen} modal={false}>
-      <DropdownMenu.Trigger>
-        <div className="flex w-32 flex-row items-center justify-between rounded-xl bg-white px-2 py-1 text-sm font-semibold capitalize outline outline-1 outline-neutral-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:outline-neutral-700 dark:hover:bg-neutral-800">
-          {selectedLabel}
+      <DropdownMenu.Trigger asChild>
+        <button className="flex w-36 flex-row items-center justify-between rounded-sm bg-neutral-100 px-2 py-1 text-xs font-semibold uppercase outline-none transition-colors border-b-2 border-neutral-400/20 hover:border-b-[#ff6600] focus:border-b-[#ff6600] data-[state=open]:border-b-[#ff6600] dark:bg-[#1f1f22] tracking-[0.15em]">
+          <span>
+            <span className="text-neutral-500 mr-1">WINDOW /</span>
+            {selectedLabel}
+          </span>
           <ChevronsUpDown size={ICON_SIZE} />
-        </div>
+        </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
         sideOffset={4}
-        className="border-1 z-50 w-32 rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900"
+        className="z-50 w-36 rounded-sm border border-neutral-200 bg-white dark:border-[#262528] dark:bg-[#1f1f22] p-1"
       >
         {options.map(({ value, label, dataTestId, onClick, isExperimental }) => (
           <DropdownMenu.Item
@@ -66,14 +69,11 @@ function TimeRangeSelector({ timeRange, onToggleGroupClick }: TimeRangeSelectorP
             data-testid={dataTestId}
             aria-label={label}
             onClick={onClick}
-            className={`flex select-none items-center justify-between rounded-xl p-2 text-xs font-semibold capitalize hover:bg-neutral-100 focus-visible:outline-none dark:hover:bg-neutral-800`}
+            className="flex cursor-pointer select-none items-center justify-between rounded-sm px-2 py-1.5 text-xs font-semibold uppercase tracking-[0.1em] hover:bg-neutral-100 focus-visible:outline-none dark:hover:bg-[#262528]"
           >
             {label}{' '}
             {isExperimental && (
-              <FlaskConicalIcon
-                size={ICON_SIZE}
-                className="text-info-base dark:text-info-base-dark"
-              />
+              <FlaskConicalIcon size={ICON_SIZE} className="text-[#ff6600]" />
             )}
           </DropdownMenu.Item>
         ))}

@@ -33,7 +33,7 @@ describe('sanitizeLocale', () => {
     ['deNOX%20wird'],
     ['itcarbon_intensity'],
     ['carbon_intensity'],
-  ])('should return "en" if the locale is invalid', (input) => {
-    expect(sanitizeLocale(input)).toBe('en');
+  ])('should return "pt-BR" if the locale is invalid', (input) => {
+    expect(sanitizeLocale(input)).toBe('pt-BR');
   });
 });

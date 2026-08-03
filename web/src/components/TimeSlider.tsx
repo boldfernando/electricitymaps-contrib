@@ -99,12 +99,12 @@ export function TimeSliderBasic({
         className="relative h-2.5 w-full grow rounded-sm"
         style={{ background: trackBackground }}
       >
-        <SliderPrimitive.Range />
+        <SliderPrimitive.Range className="absolute h-full rounded-sm bg-gradient-to-r from-[#FFCE00] via-[#FF6600] to-[#FF0066]" />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb
         data-testid="time-slider-input"
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-white outline
-           outline-1 outline-neutral-200 hover:outline-2 focus-visible:outline-2 focus-visible:outline-brand-green dark:bg-neutral-900 dark:outline-neutral-700 dark:focus-visible:outline-brand-green"
+        className="flex h-7 w-7 items-center justify-center rounded-sm bg-white outline
+           outline-1 outline-neutral-200 hover:outline-2 hover:outline-[#ff6600] focus-visible:outline-2 focus-visible:outline-[#ff6600] dark:bg-[#1f1f22] dark:outline-[#ff6600] dark:focus-visible:outline-[#ff6600]"
       >
         {thumbIcon}
       </SliderPrimitive.Thumb>

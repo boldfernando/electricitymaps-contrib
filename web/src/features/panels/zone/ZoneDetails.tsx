@@ -11,10 +11,12 @@ import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation, useParams } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import { RouteParameters } from 'types';
-import { Charts, SpatialAggregate, TimeRange } from 'utils/constants';
+import { Charts, HOURLY_TIME_INDEX, SpatialAggregate, TimeRange } from 'utils/constants';
 import {
   displayByEmissionsAtom,
+  isConsumptionAtom,
   isFiveMinuteOrHourlyGranularityAtom,
+  selectedDatetimeIndexAtom,
   selectedDatetimeStringAtom,
   spatialAggregateAtom,
   timeRangeAtom,
@@ -49,6 +51,20 @@ export default function ZoneDetails(): JSX.Element {
 
   const trackEvent = useTrackEvent();
   const { trackCtaMiddle, trackCtaForecast } = useEvents(trackEvent);
+
+  const selectedDatetimeIndex = useAtomValue(selectedDatetimeIndexAtom);
+  const isConsumption = useAtomValue(isConsumptionAtom);
+
+  let provenanceStatus: 'LIVE' | 'HISTORICAL' | 'ESTIMATED' | 'UNKNOWN' = 'UNKNOWN';
+  if (selectedData) {
+    if (hasEstimationOrAggregationPill) {
+      provenanceStatus = 'ESTIMATED';
+    } else if (selectedDatetimeIndex.index === HOURLY_TIME_INDEX[timeRange]) {
+      provenanceStatus = 'LIVE';
+    } else {
+      provenanceStatus = 'HISTORICAL';
+    }
+  }
 
   useEffect(() => {
     if (hasSubZones === null) {
@@ -144,7 +160,13 @@ export default function ZoneDetails(): JSX.Element {
       )}
     >
       <section className="h-full w-full">
-        <ZoneHeader zoneId={zoneId} isEstimated={false} />
+        <ZoneHeader
+          zoneId={zoneId}
+          isEstimated={false}
+          zoneDetail={selectedData}
+          status={provenanceStatus}
+          isConsumption={isConsumption}
+        />
         <div
           id="panel-scroller"
           className={twMerge(

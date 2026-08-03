@@ -49,7 +49,7 @@ function CarbonIntensitySquare({
   );
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex w-full flex-col">
       <TooltipWrapper
         tooltipContent={
           <LabelTooltip className="max-w-[200px]">{tooltipContent}</LabelTooltip>
@@ -57,33 +57,36 @@ function CarbonIntensitySquare({
         side="bottom"
         sideOffset={8}
       >
-        <div className="relative flex flex-col items-center">
-          <div className="size-20 p-1">
+        <div className="relative flex w-full flex-col rounded-sm bg-[#1f1f22] p-3 shadow-sm border border-neutral-800">
+          <div className="flex items-center gap-3">
             <animated.div
-              style={{
-                color: getTextColor(co2ColorScale(intensity)),
-                backgroundColor,
-              }}
-              className="flex h-full w-full flex-col items-center justify-center rounded-2xl"
-            >
-              <p
-                className="select-none text-base leading-none"
-                data-testid="co2-square-value"
-              >
-                <span className="font-semibold">{Math.round(intensity) || '?'}</span>
-                <span className="text-xs font-semibold">g</span>
-              </p>
-              <div className="text-xxs font-semibold leading-none">
-                {CarbonUnits.CO2EQ_PER_KILOWATT_HOUR}
+              style={{ backgroundColor }}
+              className="h-10 w-1.5 shrink-0 rounded-sm"
+            />
+            <div className="flex flex-col">
+              <span className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#adaaad]">
+                {t('country-panel.carbonintensity')}
+              </span>
+              <div className="flex items-baseline gap-1 mt-0.5">
+                <span
+                  data-testid="co2-square-value"
+                  className="font-black text-3xl tracking-tighter text-[#f9f5f8]"
+                >
+                  {Math.round(intensity) || '?'}
+                </span>
+                <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#adaaad]">
+                  {CarbonUnits.CO2EQ_PER_KILOWATT_HOUR}
+                </span>
               </div>
-            </animated.div>
+            </div>
+            {tooltipContent && (
+              <div className="ml-auto">
+                <InfoIconWithPadding />
+              </div>
+            )}
           </div>
-          {tooltipContent && <InfoIconWithPadding />}
         </div>
       </TooltipWrapper>
-      <p className="text-xs font-semibold text-neutral-600 dark:text-neutral-400">
-        {t('country-panel.carbonintensity')}
-      </p>
     </div>
   );
 }

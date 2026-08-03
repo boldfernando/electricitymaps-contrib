@@ -60,16 +60,18 @@ export default function ZonesLayer() {
           'line-color': [
             'case',
             ['boolean', ['feature-state', 'selected'], false],
-            'white',
-            theme.strokeColor,
+            '#FF6600',
+            ['boolean', ['feature-state', 'hover'], false],
+            'rgba(255, 102, 0, 0.72)',
+            'rgba(249, 245, 248, 0.36)',
           ],
           'line-width': [
             'case',
             ['boolean', ['feature-state', 'selected'], false],
-            theme.strokeWidth * 12,
+            2,
             ['boolean', ['feature-state', 'hover'], false],
-            theme.strokeWidth * 10,
-            theme.strokeWidth,
+            1.25,
+            0.75,
           ],
         }}
       />

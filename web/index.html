@@ -147,7 +147,7 @@
 
     <!-- CookieYes Banner -->
     <script>
-      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      if (window.location.hostname.endsWith('electricitymaps.com') || window.location.hostname.endsWith('electricitymap.org')) {
         const s = document.createElement('script');
         s.id = 'cookieyes';
         s.src = 'https://cdn-cookieyes.com/client_data/e8dc92a5b54e1aaf957f6897/script.js';

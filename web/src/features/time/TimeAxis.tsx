@@ -106,7 +106,7 @@ const renderTickValue = (
 
   return shouldDisplayLive ? (
     <g>
-      <text fill="#DE3054" y="9" dy="0.71em" fontWeight="bold" textAnchor="middle">
+      <text fill="#FF0066" y="9" dy="0.71em" fontWeight="bold" textAnchor="middle">
         Live
       </text>
     </g>
@@ -153,7 +153,7 @@ function TimeAxis({
   if (datetimes === undefined || isLoading) {
     return (
       <div className="flex h-[22px]  w-full justify-center">
-        <PulseLoader size={6} color={'#135836'} />
+        <PulseLoader size={6} color={'#FF6600'} />
       </div>
     );
   }

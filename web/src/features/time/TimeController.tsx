@@ -132,15 +132,15 @@ export default function TimeController({
               type="link"
               size="sm"
               onClick={onToggle}
-              foregroundClasses="px-2"
-              backgroundClasses="outline outline-1 outline-neutral-200 bg-white dark:bg-neutral-900 dark:outline-neutral-700"
+              foregroundClasses="px-2 font-semibold uppercase tracking-[0.1em]"
+              backgroundClasses="outline outline-1 outline-neutral-200 bg-neutral-100 dark:bg-[#1f1f22] dark:outline-none border-b-2 border-transparent hover:border-b-[#ff6600]"
               shouldShrink
             >
               <FormattedTime
                 datetime={selectedDatetime.datetime}
                 language={i18n.languages[0]}
                 timeRange={timeRange}
-                className="text-sm"
+                className="text-xs"
               />
             </Button>
           ) : (
@@ -148,7 +148,7 @@ export default function TimeController({
               datetime={selectedDatetime.datetime}
               language={i18n.languages[0]}
               timeRange={timeRange}
-              className="text-sm font-semibold"
+              className="text-xs font-semibold uppercase tracking-[0.1em]"
             />
           )}
         </div>

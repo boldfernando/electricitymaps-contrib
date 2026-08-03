@@ -35,7 +35,10 @@ export function ChartTitle({
   return (
     <div className="flex flex-col pb-2">
       <div className={`flex items-center gap-1.5 pt-4 ${className}`}>
-        <h2 id={id} className="grow">
+        <h2
+          id={id}
+          className="grow text-xs font-black uppercase tracking-[0.18em] text-[#f9f5f8]"
+        >
           {titleText}
         </h2>
         {badge}

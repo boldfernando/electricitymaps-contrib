@@ -23,7 +23,7 @@ const GlassContainer = forwardRef<HTMLDivElement, GlassContainerProps>(
     <div
       ref={reference}
       className={twMerge(
-        `absolute z-30 w-full overflow-hidden border border-neutral-200 bg-white dark:border-neutral-700/60 dark:bg-neutral-900 sm:rounded-2xl sm:bg-white/80 sm:dark:bg-neutral-900/80`,
+        `absolute z-30 w-full overflow-hidden border-0 bg-[#0e0e10] dark:bg-[#0e0e10] sm:rounded-sm sm:border sm:border-[#262528] sm:bg-[#131315]/85 sm:dark:bg-[#131315]/85 shadow-[0_24px_60px_rgba(0,0,0,0.34)] transition-all duration-200 ease-[cubic-bezier(0.2,0,0.1,1)]`,
         className
       )}
       {...props}

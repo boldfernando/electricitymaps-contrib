@@ -21,32 +21,40 @@ function ZoneHeaderTitle({
   const disclaimer = getDisclaimer(zoneId);
 
   return (
-    <div className="flex w-full items-center gap-2 pr-2 md:pr-4">
-      <CountryFlag
-        zoneId={zoneId}
-        size={18}
-        className="shadow-[0_0px_3px_rgba(0,0,0,0.2)]"
-      />
-      <TooltipWrapper
-        tooltipContent={
-          showTooltip ? (
-            <LabelTooltip className="max-w-[400px]">{zoneNameFull}</LabelTooltip>
-          ) : undefined
-        }
-        side="bottom"
-      >
-        <h1 className="truncate" data-testid="zone-name">
-          {zoneName}
-        </h1>
-      </TooltipWrapper>
-      {disclaimer && (
+    <div className="flex w-full flex-col pr-2 md:pr-4">
+      <span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#adaaad]">
+        ZONE / {zoneId.toUpperCase()}
+      </span>
+      <div className="flex items-center gap-2 mt-0.5">
+        <CountryFlag
+          zoneId={zoneId}
+          size={16}
+          className="shadow-[0_0px_3px_rgba(0,0,0,0.2)] rounded-sm"
+        />
         <TooltipWrapper
+          tooltipContent={
+            showTooltip ? (
+              <LabelTooltip className="max-w-[400px]">{zoneNameFull}</LabelTooltip>
+            ) : undefined
+          }
           side="bottom"
-          tooltipContent={<LabelTooltip>{disclaimer}</LabelTooltip>}
         >
-          <Info size={20} className="min-h-5 min-w-5 text-neutral-500" />
+          <h1
+            className="truncate text-xl font-extrabold tracking-tight text-[#f9f5f8]"
+            data-testid="zone-name"
+          >
+            {zoneName}
+          </h1>
         </TooltipWrapper>
-      )}
+        {disclaimer && (
+          <TooltipWrapper
+            side="bottom"
+            tooltipContent={<LabelTooltip>{disclaimer}</LabelTooltip>}
+          >
+            <Info size={16} className="min-h-4 min-w-4 text-[#adaaad]" />
+          </TooltipWrapper>
+        )}
+      </div>
     </div>
   );
 }

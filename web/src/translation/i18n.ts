@@ -3,7 +3,7 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next';
-import { localeToFacebookLocale } from 'translation/locales';
+import { languageNames, localeToFacebookLocale } from 'translation/locales';
 
 // Regular expression for valid language or locale strings
 const VALID_LOCALE_REGEX = /^[A-Za-z]{2}(-[A-Za-z]{2})?$/;
@@ -19,10 +19,14 @@ export const sanitizeLocale = (locale: string): string => {
   }
 
   console.warn(
-    `Invalid locale string: ${locale}, could not sanitize, defaulting to 'en'`
+    `Invalid locale string: ${locale}, could not sanitize, defaulting to 'pt-BR'`
   );
-  return 'en';
+  return 'pt-BR';
 };
+
+// Determine stored language — if none stored, default to pt-BR on first visit
+const storedLanguage =
+  typeof window === 'undefined' ? null : localStorage.getItem('i18nextLng');
 
 // Init localisation package and ensure it uses relevant plugins
 // eslint-disable-next-line import/no-named-as-default-member
@@ -31,9 +35,11 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en',
+    lng: storedLanguage ?? 'pt-BR',
+    fallbackLng: 'pt-BR',
+    supportedLngs: Object.keys(languageNames),
     detection: {
-      order: ['querystring', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
+      order: ['localStorage', 'querystring', 'navigator'],
       lookupQuerystring: 'lang',
       caches: ['localStorage'],
       convertDetectedLanguage: sanitizeLocale,

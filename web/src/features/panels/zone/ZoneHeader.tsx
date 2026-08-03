@@ -6,19 +6,30 @@ import { Ellipsis } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { getFullZoneName, getSEOZoneName } from 'translation/translation';
+import { ZoneDetail } from 'types';
 import { metaTitleSuffix } from 'utils/constants';
 
 import { ShareButton } from './ShareButton';
 import ZoneHeaderBackButton from './ZoneHeaderBackButton';
 import ZoneHeaderTitle from './ZoneHeaderTitle';
+import ZoneProvenanceRow from './ZoneProvenanceRow';
 
 interface ZoneHeaderTitleProps {
   zoneId: string;
   isEstimated?: boolean;
   isAggregated?: boolean;
+  zoneDetail?: ZoneDetail;
+  status?: 'LIVE' | 'HISTORICAL' | 'ESTIMATED' | 'UNKNOWN';
+  isConsumption?: boolean;
 }
 
-export default function ZoneHeader({ zoneId, isEstimated }: ZoneHeaderTitleProps) {
+export default function ZoneHeader({
+  zoneId,
+  isEstimated,
+  zoneDetail,
+  status,
+  isConsumption,
+}: ZoneHeaderTitleProps) {
   const seoZoneName = getSEOZoneName(zoneId);
   const zoneNameFull = getFullZoneName(zoneId);
 
@@ -30,7 +41,7 @@ export default function ZoneHeader({ zoneId, isEstimated }: ZoneHeaderTitleProps
   const { t } = useTranslation();
 
   return (
-    <div className="flex w-full items-center pl-1 pr-4 pt-[max(calc(env(safe-area-inset-top))-2rem)] sm:pt-2">
+    <div className="flex w-full items-start pl-1 pr-4 pt-[max(calc(env(safe-area-inset-top))-2rem)] sm:pt-2">
       <Helmet prioritizeSeoTags>
         <title>{seoZoneName + metaTitleSuffix}</title>
         <link rel="canonical" href={canonicalUrl} />
@@ -39,6 +50,12 @@ export default function ZoneHeader({ zoneId, isEstimated }: ZoneHeaderTitleProps
 
       <div className="w-full overflow-hidden">
         <ZoneHeaderTitle zoneId={zoneId} zoneNameFull={zoneNameFull} />
+        <ZoneProvenanceRow
+          source={zoneDetail?.source}
+          updatedAt={zoneDetail?.stateDatetime}
+          status={status}
+          isConsumption={isConsumption}
+        />
       </div>
 
       {isShareButtonEnabled &&

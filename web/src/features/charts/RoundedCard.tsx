@@ -8,7 +8,7 @@ export const RoundedCard = forwardRef<
   return (
     <section
       className={twMerge(
-        'my-2 overflow-hidden rounded-2xl border border-neutral-200 bg-white/60 px-4 pb-2 dark:border-neutral-700/80 dark:bg-neutral-800/60',
+        'my-2 overflow-hidden rounded-sm border border-[#262528] bg-[#1f1f22]/90 p-4 backdrop-blur-xl transition-all duration-200 ease-[cubic-bezier(0.2,0,0.1,1)]',
         className
       )}
       ref={reference}

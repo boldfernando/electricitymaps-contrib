@@ -12,13 +12,17 @@ import { useAtomValue } from 'jotai';
 import { CircleDashed, TrendingUpDown } from 'lucide-react';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StateZoneData } from 'types';
+import { useParams } from 'react-router-dom';
+import { RouteParameters, StateZoneData } from 'types';
 import { EstimationMethods, isTSAModel } from 'utils/constants';
 import getEstimationOrAggregationTranslation from 'utils/getEstimationTranslation';
 import { round } from 'utils/helpers';
 import {
+  displayByEmissionsAtom,
+  isConsumptionAtom,
   isFiveMinuteOrHourlyGranularityAtom,
   selectedDatetimeStringAtom,
+  timeRangeAtom,
 } from 'utils/state/atoms';
 
 import { hoveredZoneAtom, mapMovingAtom, mousePositionAtom } from './mapAtoms';
@@ -42,7 +46,10 @@ export const TooltipInner = memo(function TooltipInner({
   return (
     <div className="flex w-full flex-col gap-2 py-3 text-center">
       <div className="flex flex-col px-3">
-        <div className="flex w-full flex-row justify-between">
+        <span className="self-start text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#ff6600]">
+          HOVER / {zoneId.toUpperCase()}
+        </span>
+        <div className="flex w-full flex-row justify-between mt-1">
           <ZoneName zone={zoneId} textStyle="font-medium text-base font-poppins" />
           <DataValidityBadge
             hasOutage={Boolean(o)}
@@ -108,12 +115,33 @@ export default function MapTooltip() {
   const selectedDatetimeString = useAtomValue(selectedDatetimeStringAtom);
   const isMapMoving = useAtomValue(mapMovingAtom);
   const { data } = useGetState();
+  const { zoneId: selectedZoneId } = useParams<RouteParameters>();
+
+  // Read the remaining analytic key atoms to document the full comparison chain.
+  // These are global atoms shared by both the tooltip and the inspector panel.
+  // When zoneId matches, the full analytic key is necessarily identical because:
+  //   - datetime:       both read selectedDatetimeStringAtom (same value)
+  //   - aggregate:      both read timeRangeAtom (same value)
+  //   - layer:          both read displayByEmissionsAtom (same value)
+  //   - accountingMode: both read isConsumptionAtom (same value)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _timeRange = useAtomValue(timeRangeAtom);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _isConsumption = useAtomValue(isConsumptionAtom);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _displayByEmissions = useAtomValue(displayByEmissionsAtom);
 
   if (!hoveredZone || isMapMoving) {
     return null;
   }
 
   const { zoneId } = hoveredZone;
+
+  // Full analytic key comparison: zoneId equality implies full key equality
+  // because datetime, aggregate, layer and accountingMode are shared global atoms.
+  if (zoneId === selectedZoneId) {
+    return null;
+  }
 
   const { x, y } = mousePosition;
   const zoneData = data?.datetimes[selectedDatetimeString]?.z[zoneId];

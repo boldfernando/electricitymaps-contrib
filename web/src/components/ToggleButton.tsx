@@ -51,14 +51,14 @@ function ToggleButton<T extends string>({
   return (
     <div
       className={twMerge(
-        'relative z-10 flex min-w-fit items-center gap-1 overflow-hidden rounded-full border border-neutral-200 bg-neutral-100 p-1 dark:border-neutral-700/60 dark:bg-neutral-900/80',
-        !transparentBackground && 'bg-neutral-200/80'
+        'relative z-10 flex min-w-fit items-center gap-0 border-b border-[#262528] bg-[#131315]/80 p-0 rounded-sm',
+        !transparentBackground && 'bg-[#131315]'
       )}
     >
       {transparentBackground && <GlassBackdrop />}
 
       <ToggleGroupRoot
-        className={'flex grow flex-row items-center justify-between rounded-full'}
+        className={'flex grow flex-row items-center justify-between rounded-none'}
         type="single"
         aria-label="Toggle between modes"
         value={selectedOption}
@@ -70,13 +70,13 @@ function ToggleButton<T extends string>({
             value={value}
             data-testid={`toggle-button-${dataTestId ?? value}`}
             className={twMerge(
-              'inline-flex h-7 w-full items-center whitespace-nowrap rounded-full bg-neutral-100/0 px-3 text-xs dark:border dark:border-neutral-400/0 dark:bg-transparent',
+              'inline-flex min-h-[42px] w-full items-center justify-center whitespace-nowrap rounded-none px-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[#adaaad] transition-all duration-200 ease-[cubic-bezier(0.2,0,0.1,1)] hover:text-[#f9f5f8]',
               value === selectedOption
-                ? 'bg-white font-bold text-brand-green shadow-2xl transition duration-500 ease-in-out dark:border dark:border-neutral-400/10 dark:bg-white/20'
+                ? 'bg-white/5 font-black text-[#f9f5f8] shadow-[inset_0_-2px_0_#FF6600]'
                 : ''
             )}
           >
-            <p className="grow select-none text-sm capitalize dark:text-white">
+            <p className="grow select-none text-center text-xs font-black uppercase tracking-[0.18em]">
               {t(translationKey)}
             </p>
           </ToggleGroupItem>

@@ -25,7 +25,7 @@ function ZoneGaugesWithCO2Square({
   const renewable = getRenewableRatio(zoneData, isConsumption);
   const fossilFuelPercentage = getFossilFuelRatio(zoneData, isConsumption);
   return (
-    <div className={`flex w-full flex-row ${classNames}`}>
+    <div className={`flex w-full flex-col gap-2 ${classNames}`}>
       <CarbonIntensitySquare
         data-testid="co2-square-value"
         intensity={intensity}
@@ -33,22 +33,24 @@ function ZoneGaugesWithCO2Square({
           withTooltips ? <p>{t('tooltips.zoneHeader.carbonIntensity')}</p> : undefined
         }
       />
-      <CircularGauge
-        name={t('country-panel.lowcarbon')}
-        ratio={fossilFuelPercentage}
-        tooltipContent={
-          withTooltips ? <p>{t('tooltips.zoneHeader.lowcarbon')}</p> : undefined
-        }
-        testId="zone-header-lowcarbon-gauge"
-      />
-      <CircularGauge
-        name={t('country-panel.renewable')}
-        ratio={renewable}
-        tooltipContent={
-          withTooltips ? <p>{t('tooltips.zoneHeader.renewable')}</p> : undefined
-        }
-        testId="zone-header-renewable-gauge"
-      />
+      <div className="grid w-full grid-cols-2 gap-2">
+        <CircularGauge
+          name={t('country-panel.lowcarbon')}
+          ratio={fossilFuelPercentage}
+          tooltipContent={
+            withTooltips ? <p>{t('tooltips.zoneHeader.lowcarbon')}</p> : undefined
+          }
+          testId="zone-header-lowcarbon-gauge"
+        />
+        <CircularGauge
+          name={t('country-panel.renewable')}
+          ratio={renewable}
+          tooltipContent={
+            withTooltips ? <p>{t('tooltips.zoneHeader.renewable')}</p> : undefined
+          }
+          testId="zone-header-renewable-gauge"
+        />
+      </div>
     </div>
   );
 }

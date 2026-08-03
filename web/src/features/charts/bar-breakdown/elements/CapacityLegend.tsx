@@ -2,9 +2,9 @@ import { memo } from 'react';
 
 function CapacityLegend({ text, unit }: { text: string; unit?: string }) {
   return (
-    <div className="flex flex-row">
-      <span className="mt-0.5 h-3 w-3 rounded-full bg-black/10 text-xs dark:bg-white/10" />
-      <span className="pl-2 text-xs font-medium text-neutral-600 dark:text-neutral-300">
+    <div className="flex flex-row items-center gap-2 mb-2">
+      <span className="h-2.5 w-2.5 rounded-sm bg-[#adaaad]" />
+      <span className="text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#adaaad]">
         {text} {unit && `(${unit})`}
       </span>
     </div>

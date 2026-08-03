@@ -72,7 +72,7 @@ function HistoricalTimeHeader({
   return (
     <div className="flex h-6 w-full flex-row items-center justify-between text-xs font-semibold">
       <div
-        className={`relative flex items-center justify-between rounded-full bg-white px-1 py-0.5 dark:bg-neutral-900 ${floatingStyle}`}
+        className={`relative flex items-center justify-between rounded-sm bg-neutral-100 px-1 py-0.5 dark:bg-[#1f1f22] tracking-[0.1em] uppercase ${floatingStyle}`}
       >
         <Button
           backgroundClasses="bg-transparent"
@@ -84,7 +84,7 @@ function HistoricalTimeHeader({
             <ChevronLeft
               size={20}
               className={twMerge(
-                'text-primary dark:dark:text-neutral-200',
+                'text-[#ff6600]',
                 !isWithinHistoricalLimit && 'opacity-50'
               )}
             />
@@ -99,10 +99,7 @@ function HistoricalTimeHeader({
           isDisabled={!urlDatetime}
           icon={
             <ChevronRight
-              className={twMerge(
-                'text-primary dark:text-neutral-200',
-                !urlDatetime && 'opacity-50'
-              )}
+              className={twMerge('text-[#ff6600]', !urlDatetime && 'opacity-50')}
               size={20}
             />
           }
@@ -110,22 +107,27 @@ function HistoricalTimeHeader({
       </div>
       <div className="semibold relative mr-0 flex">
         <Button
-          foregroundClasses="text-xs font-semibold"
-          backgroundClasses={`rounded-full bg-transparent z-1 ${floatingStyle}`}
+          foregroundClasses="text-xs font-semibold uppercase tracking-[0.1em]"
+          backgroundClasses={`rounded-sm bg-transparent z-1 ${floatingStyle}`}
           size="sm"
           type="tertiary"
           onClick={handleLatestClick}
           isDisabled={!urlDatetime}
-          icon={<Radio size={20} />}
+          icon={
+            <Radio
+              size={20}
+              className={urlDatetime ? 'text-[#ff6600]' : 'text-[#ff0066]'}
+            />
+          }
         >
           {t('time-controller.live')}
         </Button>
         <Button
-          backgroundClasses={`rounded-full bg-transparent mr-0 z-1 ${floatingStyle}`}
+          backgroundClasses={`rounded-sm bg-transparent mr-0 z-1 ${floatingStyle}`}
           size="sm"
           type="tertiary"
           onClick={onClose}
-          icon={<X size={20} />}
+          icon={<X size={20} className="text-neutral-500 hover:text-white" />}
         />
       </div>
     </div>
