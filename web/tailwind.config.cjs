@@ -88,10 +88,26 @@ const config = {
           DEFAULT: colors.neutral[100],
           dark: colors.neutral[800],
         },
+        onyx: {
+          surface: '#0e0e10',
+          low: '#131315',
+          high: '#1f1f22',
+          highest: '#262528',
+          primary: '#FF6600',
+          onSurface: '#f9f5f8',
+          onSurfaceVariant: '#adaaad',
+        },
         stroke: {
           DEFAULT: colors.neutral[200],
           dark: colors.neutral[800],
         },
+      },
+      letterSpacing: {
+        technical: '0.2em',
+        'wide-technical': '0.25em',
+      },
+      transitionTimingFunction: {
+        kinetic: 'cubic-bezier(0.2, 0, 0, 1)',
       },
       minWidth: { 18: '4.5rem' },
     },
