@@ -1,4 +1,5 @@
 import logging
+import shutil
 from importlib import resources
 
 import pytest
@@ -7,6 +8,10 @@ from requests_mock import GET
 from testfixtures import LogCapture
 
 from electricitymap.contrib.parsers import SG
+
+has_tesseract = pytest.mark.skipif(
+    not shutil.which("tesseract"), reason="Tesseract OCR executable not found"
+)
 
 
 @pytest.fixture(autouse=True)
@@ -20,6 +25,7 @@ def mock_response(requests_mock):
     )
 
 
+@has_tesseract
 @freeze_time("2021-12-23 03:21:00")
 def test_works_when_nonzero(requests_mock, session):
     requests_mock.register_uri(
@@ -32,17 +38,20 @@ def test_works_when_nonzero(requests_mock, session):
     assert SG.get_solar(session, logger=logging.getLogger("test")) == 350.55
 
 
+@has_tesseract
 @freeze_time("2021-12-23 15:12:00")
 def test_works_when_zero(session):
     assert SG.get_solar(session, logger=logging.getLogger("test")) == 0.0
 
 
+@has_tesseract
 @freeze_time("2024-08-06 15:12:00")
 def test_ignore_data_older_than_one_hour(session):
     with LogCapture():
         assert SG.get_solar(session, logger=logging.getLogger("test")) is None
 
 
+@has_tesseract
 @freeze_time("2021-12-23 15:06:00")
 def test_allow_remote_clock_to_be_slightly_ahead(session):
     assert SG.get_solar(session, logger=logging.getLogger("test")) == 0

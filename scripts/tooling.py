@@ -12,7 +12,10 @@ import sys
 
 def _run(cmd: str):
     cmd_with_args = f"{cmd} {' '.join(sys.argv[1:])}"
-    print(f"⚙︎ {cmd_with_args}")
+    try:
+        print(f"⚙︎ {cmd_with_args}")
+    except UnicodeEncodeError:
+        print(f"[run] {cmd_with_args}")
     r = subprocess.run(cmd_with_args, shell=True).returncode
     if r != 0:
         print(f"FAILED: {cmd}")
